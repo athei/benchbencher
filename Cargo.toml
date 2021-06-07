@@ -12,3 +12,9 @@ codegen-units = 1
 opt-level = 3
 
 [dependencies]
+anyhow = "1"
+console = "0.14"
+indicatif = "0.16"
+humantime = "2"
+regex = "1"
+structopt = "0.3"
