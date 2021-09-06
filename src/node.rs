@@ -25,9 +25,9 @@ impl<'a> Node<'a> {
             .output()
             .with_context(|| format!("Failed to execute command: {:#?}", cmd))?;
         let stdout = extract_stdout(output).context("Failed to extract stdout")?;
-        let re = Regex::new(r#"^Pallet: "(.+?)", Extrinsic: "(.+?)""#)?;
+        let re = Regex::new(r#"^(.+?), (.+)"#)?;
         let mut result = BTreeMap::new();
-        for line in stdout.lines().filter_map(|line| re.captures(line)) {
+        for line in stdout.lines().skip(1).filter_map(|line| re.captures(line)) {
             let pallet = line
                 .get(1)
                 .context("Failed to extract pallet name")?
@@ -78,7 +78,7 @@ impl<'a> Node<'a> {
 
     fn list_command(&self) -> Command {
         let mut cmd = self.basic_command();
-        cmd.arg("--pallet=*").arg("--extrinsic=*").arg("--repeat=0");
+        cmd.arg("--list");
         cmd
     }
 
