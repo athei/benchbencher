@@ -88,7 +88,8 @@ impl<'a> Node<'a> {
             .arg(pallet)
             .arg("--extrinsic")
             .arg(ext)
-            .arg("--repeat=1");
+            .arg("--repeat=20")
+            .arg("--steps=50");
         cmd
     }
 }
