@@ -78,6 +78,8 @@ pub fn run(pallets: &[Pallet], node: &Node) -> Result<()> {
         for ext in &pallet.extrinsics {
             let name = format!("{}/{}", pallet.name, ext);
             pallet_progress.set_message(name.clone());
+            // for whaterever reason the message is only updated when a line is printed
+            pallet_progress.println("");
             let start = Instant::now();
             node.execute_benchmark(&pallet.name, ext)
                 .with_context(|| format!("Failed to execute: {}", name))?;
